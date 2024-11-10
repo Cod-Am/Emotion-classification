@@ -1,0 +1,509 @@
+/* body {
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+  }
+  
+  .journalContainer {
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr;
+    grid-template-rows: auto;
+    gap: 20px;
+  }
+  
+  .header {
+    grid-column: span 3;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    
+    background-color: #d3d3d3;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+   
+  }
+  
+  .journal-btn {
+    display: flex;
+    align-items: center;
+    color: #0e0e0e;
+    font-weight: bold;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 26px;
+  }
+  
+  .journal-btn span {
+    margin-left: 8px;
+    font-size: 30px;
+    color: black;
+  }
+  
+  .search-container {
+    display: flex;
+    flex-grow: 1;
+    max-width: 600px;
+    margin: 0 20px;
+    align-items: center;
+  }
+  
+  .search-input {
+    flex-grow: 1;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px 0 0 4px;
+    font-size: 16px;
+  }
+  
+  .explore-btn {
+    padding: 8px 12px;
+    margin-left: 10px;
+    background-color: #0e0e0e;
+    color: white;
+    border: none;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .user-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #0e0e0e;
+    font-size: 30px;
+  }
+  
+  .backIcon {
+    cursor: pointer;
+  }
+  
+  .title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #131313;
+  }
+  
+  .searchBar {
+    display: flex;
+    align-items: center;
+  }
+  
+  .searchBar input {
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    margin-right: 10px;
+  }
+  
+  .searchBar button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #e0e0e0;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  
+  .userIcons img {
+    margin-left: 10px;
+  }
+  
+  .sidebar {
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+  
+  .sidebar h2 {
+    font-size: 17px;
+    font-weight: 600;
+    color: #373737;
+  }
+  
+  .sidebar ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .sidebar li {
+    margin: 10px 0;
+    color: #363636;
+  }
+  
+  .content {
+    padding: 20px;
+     background-color: #d3d3d3;;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+  
+  .content h2 {
+    font-size: 47px;
+    font-weight: 600;
+    color: #0e0e0e;
+    margin-bottom: 20px;
+  }
+  
+  .updates .update {
+    display: flex;
+    margin-bottom: 20px;
+  }
+  
+  .update img {
+    border-radius: 50%;
+    margin-right: 20px;
+  }
+  
+  .filterUpdates {
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+  
+  .filterUpdates h2 {
+    font-size: 20px;
+    font-weight: 500;
+    color: #3f3f3f;
+    margin-bottom: 20px;
+  }
+  
+  .filterUpdates ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .filterUpdates li {
+    margin: 10px 0;
+    color: #353535;
+  }
+  
+  .filterButtons {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .filterButtons button {
+    padding: 10px;
+    border: none;
+    background-color: #e0e0e0;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  
+
+  .sidebar {
+    width: 250px;
+    background-color: #d3d3d3;
+    padding: 20px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .menu-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    font-size: 16px;
+    color: black;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    width: 100%;
+  }
+  
+  .menu-item span {
+    margin-left: 10px;
+  }
+  
+  .menu-section {
+    margin-top: 20px;
+  }
+  
+  .chevron {
+    margin-left: auto;
+  }
+  
+  .submenu {
+    margin-left: 20px;
+    margin-top: 10px;
+  }
+  
+  .submenu-item {
+    display: block;
+    padding: 5px 0;
+    font-size: 14px;
+    color: black;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+  }
+   */
+
+   body {
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+}
+
+.journalContainer {
+    display: grid;
+    grid-template-columns: 250px 1fr 250px;
+    gap: 20px;
+}
+
+/* Header Styles */
+.header {
+    grid-column: span 3;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    background-color: #d3d3d3;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.journal-btn {
+    display: flex;
+    align-items: center;
+    color: #0e0e0e;
+    font-weight: bold;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 26px;
+}
+
+.journal-btn span {
+    margin-left: 8px;
+    font-size: 30px;
+    color: black;
+}
+
+.search-container {
+    display: flex;
+    flex-grow: 1;
+    max-width: 600px;
+    margin: 0 20px;
+    align-items: center;
+}
+
+.search-input {
+    flex-grow: 1;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px 0 0 4px;
+    font-size: 16px;
+}
+
+.explore-btn {
+    padding: 8px 12px;
+    margin-left: 10px;
+    background-color: #0e0e0e;
+    color: white;
+    border: none;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.user-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #0e0e0e;
+    font-size: 30px;
+}
+
+.title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #131313;
+}
+
+.searchBar {
+    display: flex;
+    align-items: center;
+}
+
+.searchBar input {
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    margin-right: 10px;
+}
+
+.searchBar button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #e0e0e0;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+/* Sidebar Styles */
+.sidebar {
+    background-color: #d3d3d3;
+    padding: 20px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar h2 {
+    font-size: 17px;
+    font-weight: 600;
+    color: #373737;
+    margin-bottom: 10px;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    font-size: 16px;
+    color: black;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    width: 100%;
+}
+
+.menu-item span {
+    margin-left: 10px;
+}
+
+.menu-section {
+    margin-top: 20px;
+}
+
+.chevron {
+    margin-left: auto;
+}
+
+.submenu {
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
+.submenu-item {
+    display: block;
+    padding: 5px 0;
+    font-size: 14px;
+    color: black;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+}
+
+/* Content Styles */
+.content {
+    padding: 20px;
+    background-color: #d3d3d3;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.content h2 {
+    font-size: 47px;
+    font-weight: 600;
+    color: #0e0e0e;
+    margin-bottom: 20px;
+}
+
+/* Updates Styles */
+.updates .update {
+    display: flex;
+    margin-bottom: 20px;
+    background-color: #f0f0f0;
+    padding: 15px;
+    border-radius: 8px;
+    align-items: center;
+}
+
+.update img {
+    border-radius: 50%;
+    margin-right: 20px;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.user-icon {
+    margin-right: 8px;
+    color: #555;
+}
+
+.user-name {
+    font-size: 16px;
+    font-weight: bold;
+    color: black;
+}
+
+.date {
+    font-size: 14px;
+    color: #888;
+    margin: 4px 0;
+}
+
+.reflection {
+    font-size: 14px;
+    color: #333;
+}
+
+/* Filter Updates Styles */
+.filterUpdates {
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.filterUpdates h2 {
+    font-size: 20px;
+    font-weight: 500;
+    color: #3f3f3f;
+    margin-bottom: 20px;
+}
+
+.filterUpdates ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.filterUpdates li {
+    margin: 10px 0;
+    color: #353535;
+}
+
+.filterButtons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.filterButtons button {
+    padding: 10px;
+    border: none;
+    background-color: #e0e0e0;
+    border-radius: 8px;
+    cursor: pointer;
+}
