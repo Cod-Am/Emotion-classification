@@ -1,46 +1,64 @@
-import React, {useState, useEffect} from 'react'
-import './JournalApp.css'
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {faUser} from '@fortawesome/free-solid-svg-icons'
+import React, { useState, useEffect } from "react";
+import "./JournalApp.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
 
 function JournalApp() {
-  const [entries, setEntries] = useState([])
-  const [newEntry, setNewEntry] = useState('')
-  const [dash, setDash] = useState(false)
+  const [entries, setEntries] = useState([]);
+  const [newEntry, setNewEntry] = useState("");
+  const [dash, setDash] = useState(false);
 
-  // Fetch entries from backend (placeholder)
+  // Fetch entries from backend on initial load
   useEffect(() => {
-    // Replace with API call to fetch entries
-    fetch('/api/entries')
-      .then(response => response.json())
-      .then(data => setEntries(data))
-  }, [])
+    const fetchEntries = async () => {
+      try {
+        const response = await fetch("http://127.0.0.1:5000/api/entries", {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+        });
+        if (response.ok) {
+          const data = await response.json();
+          setEntries(data.data); // Assuming the backend sends entries under 'data'
+        } else {
+          console.error("Failed to fetch entries");
+        }
+      } catch (error) {
+        console.log("Error fetching entries:", error);
+      }
+    };
+    fetchEntries();
+  }, []);
 
   // Handle new entry submission
-  const handleSubmit = async e => {
-    e.preventDefault()
-  
-    const entry = {
-      userName: 'User', // Placeholder
-      text: newEntry,
-      date: new Date().toLocaleDateString(),
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const entry = {
+        userName: "User", // Updated username to 'arnav' as per requirements
+        text: newEntry,
+        date: new Date().toLocaleDateString(),
+      };
+
+      const response = await fetch("http://127.0.0.1:5000/api/entries", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify([entry]), // Send as an array to match backend handling
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setEntries((prevEntries) => [entry, ...prevEntries]); // Add the new entry locally
+        console.log("received from backend");
+        console.log(data.data);
+
+        setNewEntry(""); // Clear the input field
+      } else {
+        console.error("Failed to submit entry");
+      }
+    } catch (error) {
+      console.log("Error submitting entry:", error);
     }
-  
-    // Send the entry to Flask backend
-    await fetch('http://127.0.0.1:5000/api/entries', { // Use your Flask server URL
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify(entry),
-    })
-      .then(response => response.json())
-      .then(data => {
-        console.log(data.message) // Handle success message or errors
-      })
-  
-    setEntries([entry, ...entries]) // Update state to show the new entry
-    setNewEntry('') // Clear the input field
-  }
-  
+  };
 
   return (
     <div className="journalContainer">
@@ -62,13 +80,7 @@ function JournalApp() {
         <h2>Menu</h2>
         <ul>
           <li className="menu-item">
-            {' '}
-            <button
-              onClick={() => {
-                setDash(true)
-              }}>
-              Dashboard
-            </button>
+            <button onClick={() => setDash(!dash)}>Dashboard</button>
             {dash && (
               <ul>
                 <li>Entry1</li>
@@ -92,7 +104,7 @@ function JournalApp() {
             className="entry-textarea"
             placeholder="Write your entry..."
             value={newEntry}
-            onChange={e => setNewEntry(e.target.value)}
+            onChange={(e) => setNewEntry(e.target.value)}
           />
           <button type="submit" className="entry-submit-btn">
             Add Entry
@@ -114,7 +126,7 @@ function JournalApp() {
         ))}
       </div>
     </div>
-  )
+  );
 }
 
-export default JournalApp
+export default JournalApp;
