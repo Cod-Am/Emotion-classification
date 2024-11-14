@@ -33,6 +33,7 @@ def add_entry():
         journalentry=journalentry+" "+i["text"]
         result = processing(journalentry)
     print(journalentry)
+    print(result)
        
     # print(data)
     # Return the modified object back to the frontend
