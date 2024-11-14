@@ -1,5 +1,22 @@
+import pickle
 from flask import Flask, request, jsonify
+import nltk
+from nltk.tokenize import word_tokenize
+from nltk.stem import WordNetLemmatizer
+from nltk.corpus import stopwords
 from flask_cors import CORS
+from sklearn.feature_extraction.text import TfidfVectorizer
+
+def processing(corpus):
+    model = pickle.load(open('trained_model.pkl', 'rb'))
+    vectorizer = pickle.load(open('vectorizer.pkl', 'rb'))
+    lemmatizer=WordNetLemmatizer()
+    tokenized_document = word_tokenize(corpus)
+    filtered_document = [word for word in tokenized_document if word.lower() not in stopwords.words('english')]
+    lemmatized_document = [lemmatizer.lemmatize(document) for document in filtered_document]
+    corpus = vectorizer.fit_transform(lemmatized_document)
+    result = model.predict(corpus)
+    return result
 
 app = Flask(__name__)
 CORS(app, resources={r"/api/*": {"origins": "http://localhost:3000"}})  # Allow only frontend origin
@@ -14,6 +31,7 @@ def add_entry():
     for i in data:
         i["userName"]="Arnav"
         journalentry=journalentry+" "+i["text"]
+        result = processing(journalentry)
     print(journalentry)
        
     # print(data)
