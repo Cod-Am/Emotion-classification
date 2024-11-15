@@ -1,5 +1,6 @@
 import pickle
 from flask import Flask, request, jsonify
+import numpy as np
 import nltk
 from nltk.tokenize import word_tokenize
 from nltk.stem import WordNetLemmatizer
@@ -14,7 +15,8 @@ def processing(corpus):
     tokenized_document = word_tokenize(corpus)
     filtered_document = [word for word in tokenized_document if word.lower() not in stopwords.words('english')]
     lemmatized_document = [lemmatizer.lemmatize(document) for document in filtered_document]
-    corpus = vectorizer.fit_transform(lemmatized_document)
+    corpus = vectorizer.transform(lemmatized_document)
+    corpus = corpus.toarray()
     result = model.predict(corpus)
     return result
 
@@ -37,7 +39,7 @@ def add_entry():
        
     # print(data)
     # Return the modified object back to the frontend
-    return jsonify({"message": "Entry modified successfully!", "data": data}), 200
+    return jsonify({"message": "Entry modified successfully!", "data": data, 'result':result.tolist()}), 200
 
 if __name__ == "__main__":
     app.run(debug=True)
