@@ -1,21 +1,21 @@
-import React, {useState} from 'react'
-import './journal.css'
+import React, { useState } from "react";
+import "./journal.css";
 import {
   faBook,
   faCog,
   faChevronDown,
   faChevronRight,
-} from '@fortawesome/free-solid-svg-icons'
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {faBackward, faUser} from '@fortawesome/free-solid-svg-icons'
-import Update from './Update'
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBackward, faUser } from "@fortawesome/free-solid-svg-icons";
+import Update from "./Update";
 
 const Journal = () => {
-  const [isMorningExpanded, setMorningExpanded] = useState(false)
-  const [isProgressExpanded, setProgressExpanded] = useState(false)
+  const [isMorningExpanded, setMorningExpanded] = useState(false);
+  const [isProgressExpanded, setProgressExpanded] = useState(false);
 
-  const toggleMorning = () => setMorningExpanded(!isMorningExpanded)
-  const toggleProgress = () => setProgressExpanded(!isProgressExpanded)
+  const toggleMorning = () => setMorningExpanded(!isMorningExpanded);
+  const toggleProgress = () => setProgressExpanded(!isProgressExpanded);
   return (
     <div className="journalContainer">
       {/* <header className="header">
@@ -151,7 +151,7 @@ const Journal = () => {
         </div>
       </aside>
     </div>
-  )
-}
+  );
+};
 
-export default Journal
+export default Journal;

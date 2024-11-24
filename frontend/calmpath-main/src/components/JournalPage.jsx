@@ -2,15 +2,24 @@ import React, { useState, useEffect } from "react";
 import "./JournalApp.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
 
+import MoodPop from "./MoodPop";
 function JournalApp() {
   const [entries, setEntries] = useState([]);
   const [newEntry, setNewEntry] = useState("");
-  const [dash, setDash] = useState(false);
+  const [isLoading, SetisLoading] = useState(false);
+  const [mood, Setmood] = useState("");
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   // Fetch entries from backend on initial load
   useEffect(() => {
     const fetchEntries = async () => {
+      SetisLoading(true);
       try {
         const response = await fetch("http://127.0.0.1:5000/api/entries", {
           method: "GET",
@@ -24,6 +33,8 @@ function JournalApp() {
         }
       } catch (error) {
         console.log("Error fetching entries:", error);
+      } finally {
+        SetisLoading(false);
       }
     };
     fetchEntries();
@@ -32,9 +43,10 @@ function JournalApp() {
   // Handle new entry submission
   const handleSubmit = async (e) => {
     e.preventDefault();
+    SetisLoading(true);
     try {
       const entry = {
-        userName: "User", // Updated username to 'arnav' as per requirements
+        userName: "User",
         text: newEntry,
         date: new Date().toLocaleDateString(),
       };
@@ -50,6 +62,7 @@ function JournalApp() {
         setEntries((prevEntries) => [entry, ...prevEntries]); // Add the new entry locally
         console.log("received from backend");
         console.log(data.data);
+        Setmood(data.result);
 
         setNewEntry(""); // Clear the input field
       } else {
@@ -57,6 +70,8 @@ function JournalApp() {
       }
     } catch (error) {
       console.log("Error submitting entry:", error);
+    } finally {
+      SetisLoading(false);
     }
   };
 
@@ -77,20 +92,21 @@ function JournalApp() {
       </header>
 
       <aside className="sidebar">
-        <h2>Menu</h2>
         <ul>
           <li className="menu-item">
-            <button onClick={() => setDash(!dash)}>Dashboard</button>
-            {dash && (
-              <ul>
-                <li>Entry1</li>
-                <li>Entry2</li>
-                <li>Entry3</li>
-              </ul>
-            )}
+            <div className="d-grid gap-2 mb-2">
+              <Button
+                variant="dark"
+                size="lg"
+                disabled={isLoading}
+                onClick={!isLoading ? handleShow : null}
+              >
+                {isLoading ? "Loading…" : "MOOD DETECT"}
+              </Button>
+            </div>
+
+            {show && <MoodPop mood={mood} onClose={handleClose} />}
           </li>
-          <li className="menu-item">My Entries</li>
-          <li className="menu-item">Settings</li>
         </ul>
       </aside>
 

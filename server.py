@@ -31,7 +31,7 @@ def add_entry():
     #to make certain changes in received data from frontend and sending back to it
     global journalentry
     for i in data:
-        i["userName"]="Arnav"
+        
         journalentry=journalentry+" "+i["text"]
         result = processing(journalentry)
     print(journalentry)
@@ -39,7 +39,7 @@ def add_entry():
        
     # print(data)
     # Return the modified object back to the frontend
-    return jsonify({"message": "Entry modified successfully!", "data": data, 'result':result.tolist()}), 200
+    return jsonify({"message": "Entry modified successfully!", "data": data, 'result':result[0]}), 200
 
 if __name__ == "__main__":
     app.run(debug=True)
