@@ -6,15 +6,20 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 
 import MoodPop from "./MoodPop";
+import { CreateAuth } from "../Context/Authcontext";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 function JournalApp() {
   const [entries, setEntries] = useState([]);
   const [newEntry, setNewEntry] = useState("");
   const [isLoading, SetisLoading] = useState(false);
   const [mood, Setmood] = useState("");
   const [show, setShow] = useState(false);
+  const [auth, setAuth] = CreateAuth();
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const navigate = useNavigate();
 
   // Fetch entries from backend on initial load
   useEffect(() => {
@@ -39,14 +44,20 @@ function JournalApp() {
     };
     fetchEntries();
   }, []);
-
+  const handleLogout = () => {
+    // Logic for logging out the user
+    setAuth({ ...auth, user: null, token: "" });
+    localStorage.removeItem("auth");
+    toast.success("logout success");
+    navigate("/login");
+  };
   // Handle new entry submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     SetisLoading(true);
     try {
       const entry = {
-        userName: "User",
+        userName: auth.user.name,
         text: newEntry,
         date: new Date().toLocaleDateString(),
       };
@@ -88,7 +99,12 @@ function JournalApp() {
           />
           <button className="explore-btn">Explore</button>
         </div>
-        <button className="user-btn">User</button>
+        <button className="user-btn">{auth.user.name || "USER"}</button>
+        {auth.user && (
+          <Button variant="danger" onClick={handleLogout}>
+            Logout
+          </Button>
+        )}
       </header>
 
       <aside className="sidebar">

@@ -7,13 +7,21 @@ import {
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBackward, faUser } from "@fortawesome/free-solid-svg-icons";
+import {
+  faBackward,
+  faUser,
+  faBookJournalWhills,
+} from "@fortawesome/free-solid-svg-icons";
 import Update from "./Update";
+import { CreateAuth } from "../Context/Authcontext";
+import { Button, Card } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 const Journal = () => {
   const [isMorningExpanded, setMorningExpanded] = useState(false);
   const [isProgressExpanded, setProgressExpanded] = useState(false);
-
+  const [auth, Setauth] = CreateAuth();
+  const navigate = useNavigate();
   const toggleMorning = () => setMorningExpanded(!isMorningExpanded);
   const toggleProgress = () => setProgressExpanded(!isProgressExpanded);
   return (
@@ -34,8 +42,8 @@ const Journal = () => {
       <header className="header">
         {/* Left Section: Back & Journal Button */}
         <button className="journal-btn">
-          <FontAwesomeIcon icon={faBackward} />
-          <span>Journal</span>
+          <span>CALM-PATH</span>
+          <FontAwesomeIcon icon={faBookJournalWhills} />
         </button>
 
         {/* Center Section: Search Bar */}
@@ -49,9 +57,21 @@ const Journal = () => {
         </div>
 
         {/* Right Section: User Icon */}
-        <button className="user-btn">
-          <FontAwesomeIcon icon={faUser} />
-        </button>
+        {auth.user ? (
+          <button className="user-btn">
+            {`Welcome ${auth.user.name.split(" ")[0]}`}
+            {/* <FontAwesomeIcon icon={faUser} /> */}
+          </button>
+        ) : (
+          <Button
+            variant="dark"
+            onClick={(e) => {
+              navigate("/login");
+            }}
+          >
+            LOGIN
+          </Button>
+        )}
       </header>
 
       {/* <aside className="sidebar">
@@ -73,10 +93,22 @@ const Journal = () => {
         </div>
       </aside> */}
       <div className="sidebar">
-        <button className="menu-item">
-          <FontAwesomeIcon icon={faBook} />
-          <span>Start Writing</span>
-        </button>
+        {auth.user ? (
+          <button
+            className="menu-item"
+            onClick={(e) => {
+              navigate("/Journalpage");
+            }}
+          >
+            <FontAwesomeIcon icon={faBook} />
+            <span>Start Writing</span>
+          </button>
+        ) : (
+          <button className="menu-item unselect">
+            <FontAwesomeIcon icon={faBook} />
+            <span>Start Writing</span>
+          </button>
+        )}
 
         <div className="menu-section">
           <button className="menu-item" onClick={toggleMorning}>
@@ -119,11 +151,32 @@ const Journal = () => {
       <main className="content">
         <h2>Mood Updates</h2>
         <section className="updates">
-          <Update
-            name="R.Zenith"
-            date="1 day ago"
-            reflection="Reflecting on yesterday's meditation"
-          />
+          {auth.user ? (
+            <Update
+              name={auth.user.name}
+              date="1 day ago"
+              reflection="Reflecting on yesterday's meditation"
+            />
+          ) : (
+            <Card className="text-center">
+              <Card.Header>NOT LOGGED IN!!</Card.Header>
+              <Card.Body>
+                <Card.Title>IT APPEARS YOU ARE NOT LOGGED IN</Card.Title>
+                <Card.Text>
+                  Login for free to continue writing journal
+                </Card.Text>
+                <Button
+                  variant="dark"
+                  onClick={(e) => {
+                    navigate("/login");
+                  }}
+                >
+                  LOGIN
+                </Button>
+              </Card.Body>
+            </Card>
+          )}
+
           {/* <div className="update">
             <div>
               <FontAwesomeIcon icon={faUser} />
@@ -134,22 +187,6 @@ const Journal = () => {
           </div> */}
         </section>
       </main>
-
-      <aside className="filterUpdates">
-        <h2>Filter Updates</h2>
-        <ul>
-          <li>Community Feedback</li>
-          <li>Positive Reactions</li>
-          <li>User Reviews</li>
-          <li>Personal Mentions</li>
-          <li>Recent Purchases</li>
-          <li>Direct Messages</li>
-        </ul>
-        <div className="filterButtons">
-          <button>Filter All</button>
-          <button>Clear Filters</button>
-        </div>
-      </aside>
     </div>
   );
 };
